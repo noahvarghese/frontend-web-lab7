@@ -1,3 +1,67 @@
-
+.Search {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.Search .searchBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0 1.25rem 0;
+  width: 100%;
+}
+.Search .searchBar .searchComponent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+}
+.Search .searchBar .searchComponent .lblSearch {
+  margin-right: 1rem;
+  color: #7f7f7f;
+  font-size: 1.5em;
+}
+.Search .searchBar .searchComponent .searchInputContainer {
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #707070;
+  height: 2.25rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.Search .searchBar .searchComponent .searchInputContainer input {
+  border: none;
+  outline: none;
+  width: 90%;
+  background-color: transparent;
+  font-size: 1.2rem;
+  padding-left: 0.5rem;
+}
+.Search .searchBar .searchComponent .searchInputContainer button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease-in;
+}
+.Search .searchBar .searchComponent .searchInputContainer button:hover {
+  transform: scale(1.1);
+}
+.Search .searchBar .searchComponent .closeIcon {
+  float: right;
+}
+.Search .container {
+  margin-top: 2rem;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 /*# sourceMappingURL=Search.css.map */

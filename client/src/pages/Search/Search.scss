@@ -1,0 +1,65 @@
+.Search {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .searchBar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0.25rem 0 1.25rem 0;
+        width: 100%;
+        .searchComponent {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            width: 70%;
+            .lblSearch {
+                margin-right: 1rem;
+                color: #7f7f7f;
+                font-size: 1.5em;
+            }
+            .searchInputContainer {
+                width: 100%;
+                border-radius: 5px;
+                border: 1px solid #707070;
+                height: 2.25rem;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                input {
+                    border: none;
+                    outline: none;
+                    width: 90%;
+                    background-color: transparent;
+                    font-size: 1.2rem;
+                    padding-left: 0.5rem;
+                }
+                button {
+                    background-color: transparent;
+                    border: none;
+                    outline: none;
+                    padding: 1rem;
+                    cursor: pointer;
+                    transition: transform 0.3s ease-in;
+                    &:hover {
+                        transform: scale(1.1);
+                    }
+                }
+            }
+            .closeIcon {
+                float: right;
+            }
+        }
+    }
+    .container {
+        margin-top: 2rem;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

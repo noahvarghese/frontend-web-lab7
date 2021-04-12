@@ -1,0 +1,10 @@
+.Table {
+  border-collapse: separate;
+  border-spacing: 0 15px;
+}
+.Table th {
+  width: 20%;
+  margin-bottom: 1rem;
+}
+
+/*# sourceMappingURL=Table.css.map */

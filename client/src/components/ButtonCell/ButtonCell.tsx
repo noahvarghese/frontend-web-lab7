@@ -1,7 +1,12 @@
 import React from "react";
 
 const ButtonCell = () => {
-    return <div></div>;
+    return (
+        <>
+            <td>Edit</td>
+            <td>Delete</td>
+        </>
+    );
 };
 
 export default ButtonCell;

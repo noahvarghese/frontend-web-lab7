@@ -54,13 +54,5 @@
   border-radius: 50%;
   transition: all 0.3s;
 }
-.Edit .container table {
-  border-collapse: separate;
-  border-spacing: 0 15px;
-}
-.Edit .container table th {
-  width: 20%;
-  margin-bottom: 1rem;
-}
 
 /*# sourceMappingURL=Edit.css.map */

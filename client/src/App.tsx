@@ -30,7 +30,7 @@ function App() {
                         <About />
                     </Route>
                     <Route path="/search" exact>
-                        <Search />
+                        <Search animals={animals} />
                     </Route>
                     <Route path="/edit" exact>
                         <Edit animals={animals} />
