@@ -27,7 +27,9 @@ const createLogData = <T extends Partial<LogData>>(
 
 export default class Logs {
     // static logLevel: LogLevels = Number(process.env.LOG_LEVEL!);
-    private static logLevel: LogLevels = 6;
+    private static logLevel: LogLevels = Number(
+        process.env.REACT_APP_LOG_LEVEL!
+    );
 
     private static getLogData = (logLevel: LogLevels): LogData => {
         switch (logLevel) {
