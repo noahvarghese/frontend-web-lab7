@@ -2,6 +2,7 @@ import Logs, { LogLevels } from "../lib/Logs";
 import {
     AddPermalink,
     DeletePermalink,
+    GetPermalink,
     UpdatePermalink,
 } from "../lib/Permalink";
 
@@ -13,7 +14,7 @@ export interface AnimalInterface {
     price?: number;
 }
 
-export const EmptyAnimal = (): AnimalInterface => ({
+const EmptyAnimal = (): AnimalInterface => ({
     id: undefined,
     animal: undefined,
     description: undefined,
@@ -21,8 +22,43 @@ export const EmptyAnimal = (): AnimalInterface => ({
     price: undefined,
 });
 
-export const AssignAnimal = (options?: any): AnimalInterface =>
+const AssignAnimal = (options?: any): AnimalInterface =>
     Object.assign(EmptyAnimal(), options);
+
+export const GetAllAnimals = async (): Promise<Animal[]> => {
+    const animals: Animal[] = [];
+    const response = await fetch(GetPermalink);
+
+    if (response.status === 200) {
+        const data = await response.json();
+        for (const props of data) {
+            animals.push(new Animal(props));
+        }
+    }
+
+    return animals;
+};
+
+export const AnimalFactory = async (options?: any): Promise<Animal> => {
+    const newAnimal = Object.assign(EmptyAnimal(), options);
+    let urlParams = "";
+
+    for (const key of Object.keys(newAnimal)) {
+        urlParams += `&${key}=${newAnimal[key as keyof Animal]}`;
+    }
+
+    urlParams = encodeURIComponent(urlParams);
+
+    const url = AddPermalink + urlParams;
+
+    const response = await fetch(url);
+
+    if (response.status === 200) {
+        return new Animal(newAnimal);
+    }
+
+    return new Animal();
+};
 
 export class Animal implements AnimalInterface {
     public id?: number;
@@ -34,8 +70,6 @@ export class Animal implements AnimalInterface {
     constructor(options?: any) {
         Object.assign(this, EmptyAnimal(), options);
     }
-
-    add = async () => {};
 
     update = async (options?: any) => {
         const updatedAnimal: AnimalInterface = Object.assign(
