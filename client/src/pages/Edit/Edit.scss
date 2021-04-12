@@ -1,0 +1,70 @@
+.Edit {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5rem;
+    max-width: 100%;
+
+    .container {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        .addPet {
+            align-self: flex-end;
+
+            right: 5px;
+            top: 3rem;
+            padding: 5px 5px;
+
+            button {
+                position: relative;
+                left: 1rem;
+                top: -2rem;
+                outline: none;
+                border: none;
+                background-color: transparent;
+                cursor: pointer;
+                padding: 0;
+                transition: all 0.3s;
+                display: inline;
+                box-shadow: 0 8px 8px rgba(36, 165, 150, 0.4);
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                margin: 0;
+
+                &:hover {
+                    transform: scale(1.02);
+                    box-shadow: 0 8px 40px rgba(36, 165, 150, 0.4);
+                    img {
+                        transform: scale(1.02);
+                    }
+                }
+                img {
+                    position: absolute;
+                    top: -5px;
+                    left: -8px;
+                    width: 57px;
+                    height: 57px;
+                    padding: 0;
+                    margin: 0;
+                    border-radius: 50%;
+                    transition: all 0.3s;
+                }
+            }
+        }
+
+        table {
+            // padding: 0 3rem;
+            border-collapse: separate;
+            border-spacing: 0 15px;
+            th {
+                width: 20%;
+                margin-bottom: 1rem;
+            }
+        }
+    }
+}

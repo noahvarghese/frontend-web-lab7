@@ -8,4 +8,6 @@ export const DeletePermalink = `${Permalink}delete&id=`;
 
 export const AddPermalink = `${Permalink}add`;
 
+export const SearchPermalink = `${Permalink}search`;
+
 export default Permalink;
