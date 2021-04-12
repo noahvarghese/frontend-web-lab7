@@ -1,14 +1,36 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 import "./Search.css";
 import SearchImage from "../../img/Search.png";
 import Table from "../../components/Table/Table";
 import { Animal } from "../../models/Animal";
+import { SearchPermalink } from "../../lib/Permalink";
+import Logs, { LogLevels } from "../../lib/Logs";
 
 interface SearchProps {
     animals: Animal[];
 }
 
 const Search: React.FC<SearchProps> = ({ animals }) => {
+    const [searchResults, setSearchResults] = useState<Animal[]>(animals);
+
+    const search = async (e: ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        const searchValue = e.currentTarget.value;
+
+        if (searchValue) {
+            const result = await fetch(
+                SearchPermalink + encodeURIComponent(searchValue)
+            );
+
+            if (result.status === 200) {
+                const data = await result.json();
+                Logs.addLog(data, LogLevels.DEBUG);
+                setSearchResults(data);
+                return;
+            }
+        }
+        setSearchResults(animals);
+    };
     return (
         <div className="Search">
             <div className="searchBar">
@@ -19,6 +41,7 @@ const Search: React.FC<SearchProps> = ({ animals }) => {
                             className="searchBarInput"
                             id="searchInput"
                             type="text"
+                            onChange={search}
                         />
                         <button type="button" className="searchIcon">
                             <img
@@ -31,7 +54,7 @@ const Search: React.FC<SearchProps> = ({ animals }) => {
                 </div>
             </div>
             <div className="container">
-                <Table animals={animals} />
+                <Table animals={searchResults} />
             </div>
         </div>
     );
