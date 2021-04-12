@@ -99,16 +99,20 @@ export class Animal implements AnimalInterface {
     };
 
     delete = async () => {
-        const url = DeletePermalink + this.id;
+        if (this.id) {
+            const url = DeletePermalink + this.id;
 
-        const response = await fetch(url);
+            const response = await fetch(url);
 
-        Logs.addLog(url, LogLevels.DEBUG);
-        Logs.addLog(response, LogLevels.DEBUG);
+            Logs.addLog(url, LogLevels.DEBUG);
+            Logs.addLog(response, LogLevels.DEBUG);
 
-        if (response.status === 200) {
+            if (response.status === 200) {
+                Object.assign(this, EmptyAnimal());
+                return;
+            }
+        } else {
             Object.assign(this, EmptyAnimal());
-            return;
         }
 
         throw new Error("Unable to delete animal");
