@@ -15,8 +15,10 @@ const Table: React.FC<TableProps> = ({
     setDelete,
     setEdit,
 }) => {
+    const classes = `Table ${editable && "editable"}`;
+
     return (
-        <table className="Table">
+        <table className={classes}>
             <thead>
                 <tr>
                     <th>ID</th>
@@ -24,12 +26,7 @@ const Table: React.FC<TableProps> = ({
                     <th>Description</th>
                     <th>Age</th>
                     <th>Price</th>
-                    {editable && (
-                        <>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </>
-                    )}
+                    {editable && <th></th>}
                 </tr>
             </thead>
             <tbody>

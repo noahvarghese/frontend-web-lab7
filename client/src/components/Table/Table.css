@@ -6,5 +6,8 @@
   width: 20%;
   margin-bottom: 1rem;
 }
+.Table.editable > th {
+  width: 14%;
+}
 
 /*# sourceMappingURL=Table.css.map */

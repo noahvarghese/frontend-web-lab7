@@ -1,4 +1,5 @@
 import React from "react";
+import "./ButtonCell.css";
 
 interface ButtonCellProps {
     id: number;
@@ -8,10 +9,14 @@ interface ButtonCellProps {
 
 const ButtonCell: React.FC<ButtonCellProps> = ({ id, setEdit, setDelete }) => {
     return (
-        <>
-            <td onClick={() => setEdit(id)}>Edit</td>
-            <td onClick={() => setDelete(id)}>Delete</td>
-        </>
+        <td className="ButtonCell">
+            <button className="Edit" onClick={() => setEdit(id)}>
+                Edit
+            </button>
+            <button className="Delete" onClick={() => setDelete(id)}>
+                Delete
+            </button>
+        </td>
     );
 };
 

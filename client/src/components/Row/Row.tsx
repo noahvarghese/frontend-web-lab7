@@ -11,8 +11,9 @@ interface RowProps {
 }
 
 const Row: React.FC<RowProps> = ({ editable, animal, setEdit, setDelete }) => {
+    const classes = `Row ${editable && "editable"}`;
     return (
-        <tr className="Row">
+        <tr className={classes}>
             <td className="id">{animal.id}</td>
             <td className="animal">{animal.animal}</td>
             <td className="description">{animal.description}</td>
