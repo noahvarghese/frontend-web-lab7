@@ -6,9 +6,11 @@ import "./Row.css";
 interface RowProps {
     editable?: boolean;
     animal: Animal;
+    setEdit?: (id: number) => void;
+    setDelete?: (id: number) => void;
 }
 
-const Row: React.FC<RowProps> = ({ editable, animal }) => {
+const Row: React.FC<RowProps> = ({ editable, animal, setEdit, setDelete }) => {
     return (
         <tr className="Row">
             <td className="id">{animal.id}</td>
@@ -16,7 +18,17 @@ const Row: React.FC<RowProps> = ({ editable, animal }) => {
             <td className="description">{animal.description}</td>
             <td className="age">{animal.age}</td>
             <td className="price">{animal.price}</td>
-            {editable && ButtonCell}
+            {editable && (
+                <ButtonCell
+                    id={animal.id!}
+                    setEdit={() =>
+                        typeof setEdit !== undefined && setEdit!(animal.id!)
+                    }
+                    setDelete={() =>
+                        typeof setDelete !== undefined && setDelete!(animal.id!)
+                    }
+                />
+            )}
         </tr>
     );
 };

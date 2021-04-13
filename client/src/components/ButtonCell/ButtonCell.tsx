@@ -1,10 +1,16 @@
 import React from "react";
 
-const ButtonCell = () => {
+interface ButtonCellProps {
+    id: number;
+    setEdit: (id: number) => void;
+    setDelete: (id: number) => void;
+}
+
+const ButtonCell: React.FC<ButtonCellProps> = ({ id, setEdit, setDelete }) => {
     return (
         <>
-            <td>Edit</td>
-            <td>Delete</td>
+            <td onClick={() => setEdit(id)}>Edit</td>
+            <td onClick={() => setDelete(id)}>Delete</td>
         </>
     );
 };

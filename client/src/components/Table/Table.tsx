@@ -6,8 +6,15 @@ import "./Table.css";
 interface TableProps {
     editable?: boolean;
     animals: Animal[];
+    setEdit?: (id: number) => void;
+    setDelete?: (id: number) => void;
 }
-const Table: React.FC<TableProps> = ({ editable, animals }) => {
+const Table: React.FC<TableProps> = ({
+    editable,
+    animals,
+    setDelete,
+    setEdit,
+}) => {
     return (
         <table className="Table">
             <thead>
@@ -27,7 +34,13 @@ const Table: React.FC<TableProps> = ({ editable, animals }) => {
             </thead>
             <tbody>
                 {animals.map((animal) => (
-                    <Row key={animal.id} animal={animal} editable={editable} />
+                    <Row
+                        key={animal.id}
+                        animal={animal}
+                        editable={editable}
+                        setEdit={setEdit}
+                        setDelete={setDelete}
+                    />
                 ))}
             </tbody>
         </table>
