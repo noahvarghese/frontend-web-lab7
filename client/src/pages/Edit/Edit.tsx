@@ -20,17 +20,24 @@ const Edit: React.FC<EditProps> = ({ animals, loadAnimals }) => {
     });
 
     const toggleDeleteModal = () => {
+        if (modalDisplays.deleteModal) {
+            setAnimal(undefined);
+        }
         setModalDisplays({
             deleteModal: !modalDisplays.deleteModal,
             formModal: false,
         });
     };
 
-    const toggleFormModal = () =>
+    const toggleFormModal = () => {
+        if (modalDisplays.formModal) {
+            setAnimal(undefined);
+        }
         setModalDisplays({
             deleteModal: false,
             formModal: !modalDisplays.formModal,
         });
+    };
 
     const setDelete = (id: number) => {
         setAnimal(animals.find((animal) => animal.id === id));

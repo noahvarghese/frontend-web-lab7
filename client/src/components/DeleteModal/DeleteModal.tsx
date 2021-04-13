@@ -15,13 +15,13 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
     loadAnimals,
 }) => {
     const deleteModal = async () => {
+        closeModal();
         try {
             await animal.delete();
             await loadAnimals();
         } catch (e) {
             alert(e.message);
         }
-        closeModal();
     };
     return (
         <>
