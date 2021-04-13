@@ -4,6 +4,7 @@ import "./Edit.css";
 import Add from "../../img/add.png";
 import Table from "../../components/Table/Table";
 import FormModal from "../../components/FormModal/FormModal";
+import DeleteModal from "../../components/DeleteModal/DeleteModal";
 
 interface EditProps {
     animals: Animal[];
@@ -60,6 +61,9 @@ const Edit: React.FC<EditProps> = ({ animals }) => {
             </div>
             {modalDisplays.formModal && (
                 <FormModal animal={animal} closeModal={toggleFormModal} />
+            )}
+            {modalDisplays.deleteModal && (
+                <DeleteModal animal={animal!} closeModal={toggleDeleteModal} />
             )}
         </div>
     );
