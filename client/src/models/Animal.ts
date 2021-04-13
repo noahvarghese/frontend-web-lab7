@@ -7,22 +7,22 @@ import {
 } from "../lib/Permalink";
 
 export interface AnimalInterface {
-    id?: number;
-    animal?: string;
-    description?: string;
-    age?: number;
-    price?: number;
+    id: number;
+    animal: string;
+    description: string;
+    age: number;
+    price: number;
 }
 
-const EmptyAnimal = (): AnimalInterface => ({
-    id: undefined,
-    animal: undefined,
-    description: undefined,
-    age: undefined,
-    price: undefined,
+export const EmptyAnimal = (): AnimalInterface => ({
+    id: 0,
+    animal: "",
+    description: "",
+    age: 0,
+    price: 0,
 });
 
-const AssignAnimal = (options?: any): AnimalInterface =>
+export const AssignAnimal = (options?: any): AnimalInterface =>
     Object.assign(EmptyAnimal(), options);
 
 export const GetAllAnimals = async (): Promise<Animal[]> => {
@@ -61,11 +61,11 @@ export const AnimalFactory = async (options?: any): Promise<Animal> => {
 };
 
 export class Animal implements AnimalInterface {
-    public id?: number;
-    public animal?: string;
-    public description?: string;
-    public age?: number;
-    public price?: number;
+    public id!: number;
+    public animal!: string;
+    public description!: string;
+    public age!: number;
+    public price!: number;
 
     constructor(options?: any) {
         Object.assign(this, EmptyAnimal(), options);
@@ -84,9 +84,13 @@ export class Animal implements AnimalInterface {
             urlParams += `&${key}=${this[key as keyof Animal]}`;
         }
 
+        Logs.addLog(urlParams, LogLevels.DEBUG);
+
         urlParams = encodeURIComponent(urlParams);
 
         const url = UpdatePermalink + urlParams;
+
+        Logs.addLog(url, LogLevels.DEBUG);
 
         const response = await fetch(url);
 

@@ -1,8 +1,9 @@
-import React from "react";
-import { Animal } from "../../models/Animal";
+import React, { MouseEvent, useState } from "react";
+import { Animal, AnimalFactory } from "../../models/Animal";
 import Input from "../Input/Input";
 import Blocker from "../Blocker/Blocker";
 import "./FormModal.css";
+import Logs, { LogLevels } from "../../lib/Logs";
 
 interface FormModalProps {
     animal?: Animal;
@@ -15,12 +16,33 @@ const FormModal: React.FC<FormModalProps> = ({
     closeModal,
     loadAnimals,
 }) => {
+    const [formRef, setFormRef] = useState<HTMLFormElement | null>(null);
+
+    const submitForm = async (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        closeModal();
+        const options = { ...formRef?.elements };
+        Logs.addLog(options, LogLevels.DEBUG);
+        try {
+            if (animal) {
+                Logs.addLog("UPDATE", LogLevels.DEBUG);
+                await animal.update({ id: animal?.id, ...formRef?.elements });
+            } else {
+                Logs.addLog("CREATE", LogLevels.DEBUG);
+                await AnimalFactory(options);
+            }
+            await loadAnimals();
+        } catch (e) {
+            alert(e.message);
+        }
+    };
+
     return (
         <>
             <Blocker />
             <div className="FormModal">
                 <h1>{animal ? "Update" : "Create"}</h1>
-                <form>
+                <form ref={setFormRef}>
                     <Input type="string" name="animal" value={animal?.animal} />
                     <Input
                         type="string"
@@ -33,7 +55,7 @@ const FormModal: React.FC<FormModalProps> = ({
                         <button type="reset" onClick={closeModal}>
                             Cancel
                         </button>
-                        <button type="submit">
+                        <button type="submit" onClick={submitForm}>
                             {animal ? "Update" : "Create"}
                         </button>
                     </div>
