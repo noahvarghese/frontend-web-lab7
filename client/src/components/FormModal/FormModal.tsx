@@ -7,9 +7,14 @@ import "./FormModal.css";
 interface FormModalProps {
     animal?: Animal;
     closeModal: () => void;
+    loadAnimals: () => Promise<void>;
 }
 
-const FormModal: React.FC<FormModalProps> = ({ animal, closeModal }) => {
+const FormModal: React.FC<FormModalProps> = ({
+    animal,
+    closeModal,
+    loadAnimals,
+}) => {
     return (
         <>
             <Blocker />

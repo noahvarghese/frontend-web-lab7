@@ -6,9 +6,23 @@ import "./DeleteModal.css";
 interface DeleteModalProps {
     animal: Animal;
     closeModal: () => void;
+    loadAnimals: () => Promise<void>;
 }
 
-const DeleteModal: React.FC<DeleteModalProps> = ({ animal, closeModal }) => {
+const DeleteModal: React.FC<DeleteModalProps> = ({
+    animal,
+    closeModal,
+    loadAnimals,
+}) => {
+    const deleteModal = async () => {
+        try {
+            await animal.delete();
+            await loadAnimals();
+        } catch (e) {
+            alert(e.message);
+        }
+        closeModal();
+    };
     return (
         <>
             <Blocker />
@@ -21,7 +35,9 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ animal, closeModal }) => {
                     <button type="reset" onClick={closeModal}>
                         Cancel
                     </button>
-                    <button type="submit">Delete</button>
+                    <button type="submit" onClick={deleteModal}>
+                        Delete
+                    </button>
                 </div>
             </div>
         </>

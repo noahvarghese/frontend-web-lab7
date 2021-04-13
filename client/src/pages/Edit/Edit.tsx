@@ -8,9 +8,10 @@ import DeleteModal from "../../components/DeleteModal/DeleteModal";
 
 interface EditProps {
     animals: Animal[];
+    loadAnimals: () => Promise<void>;
 }
 
-const Edit: React.FC<EditProps> = ({ animals }) => {
+const Edit: React.FC<EditProps> = ({ animals, loadAnimals }) => {
     const [animal, setAnimal] = useState<Animal | undefined>(undefined);
 
     const [modalDisplays, setModalDisplays] = useState({
@@ -60,10 +61,18 @@ const Edit: React.FC<EditProps> = ({ animals }) => {
                 />
             </div>
             {modalDisplays.formModal && (
-                <FormModal animal={animal} closeModal={toggleFormModal} />
+                <FormModal
+                    animal={animal}
+                    closeModal={toggleFormModal}
+                    loadAnimals={loadAnimals}
+                />
             )}
             {modalDisplays.deleteModal && (
-                <DeleteModal animal={animal!} closeModal={toggleDeleteModal} />
+                <DeleteModal
+                    animal={animal!}
+                    closeModal={toggleDeleteModal}
+                    loadAnimals={loadAnimals}
+                />
             )}
         </div>
     );

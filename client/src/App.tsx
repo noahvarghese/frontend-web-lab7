@@ -9,14 +9,11 @@ import "./App.css";
 
 function App() {
     const [animals, setAnimals] = useState<Animal[]>([]);
+    const loadAnimals = async () => setAnimals(await GetAllAnimals());
 
     useEffect(() => {
-        // Allow fetch call to load animals from database
-        // not pretty but does the job
-        // should use a named function
-
         (async () => {
-            setAnimals(await GetAllAnimals());
+            await loadAnimals();
         })();
     }, []);
 
@@ -33,7 +30,7 @@ function App() {
                         <Search animals={animals} />
                     </Route>
                     <Route path="/edit" exact>
-                        <Edit animals={animals} />
+                        <Edit animals={animals} loadAnimals={loadAnimals} />
                     </Route>
                 </Switch>
                 <footer>
