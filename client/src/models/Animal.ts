@@ -7,19 +7,19 @@ import {
 } from "../lib/Permalink";
 
 export interface AnimalInterface {
-    id: number;
-    animal: string;
-    description: string;
-    age: number;
-    price: number;
+    id?: number;
+    animal?: string;
+    description?: string;
+    age?: number;
+    price?: number;
 }
 
 export const EmptyAnimal = (): AnimalInterface => ({
-    id: 0,
-    animal: "",
-    description: "",
-    age: 0,
-    price: 0,
+    id: undefined,
+    animal: undefined,
+    description: undefined,
+    age: undefined,
+    price: undefined,
 });
 
 export const AssignAnimal = (options?: any): AnimalInterface =>
@@ -41,15 +41,22 @@ export const GetAllAnimals = async (): Promise<Animal[]> => {
 
 export const AnimalFactory = async (options?: any): Promise<Animal> => {
     const newAnimal = Object.assign(EmptyAnimal(), options);
+    Logs.addLog(newAnimal, LogLevels.DEBUG);
     let urlParams = "";
 
     for (const key of Object.keys(newAnimal)) {
-        urlParams += `&${key}=${newAnimal[key as keyof Animal]}`;
+        const val = newAnimal[key as keyof Animal];
+        Logs.addLog(typeof val, LogLevels.DEBUG);
+        if (val && typeof val !== "function") {
+            urlParams += `&${key}=${val}`;
+        }
     }
 
-    urlParams = encodeURIComponent(urlParams);
+    Logs.addLog(urlParams, LogLevels.DEBUG);
 
-    const url = AddPermalink + urlParams;
+    const url = (newAnimal.id ? UpdatePermalink : AddPermalink) + urlParams;
+
+    Logs.addLog(url, LogLevels.DEBUG);
 
     const response = await fetch(url);
 
@@ -70,37 +77,6 @@ export class Animal implements AnimalInterface {
     constructor(options?: any) {
         Object.assign(this, EmptyAnimal(), options);
     }
-
-    update = async (options?: any) => {
-        const updatedAnimal: AnimalInterface = Object.assign(
-            {},
-            this,
-            AssignAnimal(options)
-        );
-
-        let urlParams = "";
-
-        for (const key of Object.keys(updatedAnimal)) {
-            urlParams += `&${key}=${this[key as keyof Animal]}`;
-        }
-
-        Logs.addLog(urlParams, LogLevels.DEBUG);
-
-        urlParams = encodeURIComponent(urlParams);
-
-        const url = UpdatePermalink + urlParams;
-
-        Logs.addLog(url, LogLevels.DEBUG);
-
-        const response = await fetch(url);
-
-        if (response.status === 200) {
-            Object.assign(this, updatedAnimal);
-            return;
-        }
-
-        throw new Error("Unable to update animal");
-    };
 
     delete = async () => {
         if (this.id) {

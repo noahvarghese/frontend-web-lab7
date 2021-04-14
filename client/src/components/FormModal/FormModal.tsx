@@ -1,5 +1,10 @@
-import React, { MouseEvent, useState } from "react";
-import { Animal, AnimalFactory } from "../../models/Animal";
+import React, { MouseEvent, ChangeEvent } from "react";
+import {
+    Animal,
+    AnimalFactory,
+    AnimalInterface,
+    AssignAnimal,
+} from "../../models/Animal";
 import Input from "../Input/Input";
 import Blocker from "../Blocker/Blocker";
 import "./FormModal.css";
@@ -16,25 +21,39 @@ const FormModal: React.FC<FormModalProps> = ({
     closeModal,
     loadAnimals,
 }) => {
-    const [formRef, setFormRef] = useState<HTMLFormElement | null>(null);
-
     const submitForm = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         closeModal();
-        const options = { ...formRef?.elements };
-        Logs.addLog(options, LogLevels.DEBUG);
+        // Logs.addLog(options, LogLevels.DEBUG);
         try {
             if (animal) {
                 Logs.addLog("UPDATE", LogLevels.DEBUG);
-                await animal.update({ id: animal?.id, ...formRef?.elements });
             } else {
                 Logs.addLog("CREATE", LogLevels.DEBUG);
-                await AnimalFactory(options);
             }
+            await AnimalFactory(tmpAnimal);
             await loadAnimals();
         } catch (e) {
             alert(e.message);
         }
+    };
+
+    const tmpAnimal: AnimalInterface = AssignAnimal(animal);
+
+    const animalChange = (e: ChangeEvent<HTMLInputElement>) => {
+        tmpAnimal.animal = e.currentTarget.value;
+    };
+
+    const descriptionChange = (e: ChangeEvent<HTMLInputElement>) => {
+        tmpAnimal.description = e.currentTarget.value;
+    };
+
+    const ageChange = (e: ChangeEvent<HTMLInputElement>) => {
+        tmpAnimal.age = e.currentTarget.valueAsNumber;
+    };
+
+    const priceChange = (e: ChangeEvent<HTMLInputElement>) => {
+        tmpAnimal.price = e.currentTarget.valueAsNumber;
     };
 
     return (
@@ -42,15 +61,31 @@ const FormModal: React.FC<FormModalProps> = ({
             <Blocker />
             <div className="FormModal">
                 <h1>{animal ? "Update" : "Create"}</h1>
-                <form ref={setFormRef}>
-                    <Input type="string" name="animal" value={animal?.animal} />
+                <form>
+                    <Input
+                        type="string"
+                        name="animal"
+                        value={animal?.animal}
+                        onChange={animalChange}
+                    />
                     <Input
                         type="string"
                         name="description"
                         value={animal?.description}
+                        onChange={descriptionChange}
                     />
-                    <Input type="number" name="age" value={animal?.age} />
-                    <Input type="number" name="price" value={animal?.price} />
+                    <Input
+                        type="number"
+                        name="age"
+                        value={animal?.age}
+                        onChange={ageChange}
+                    />
+                    <Input
+                        type="number"
+                        name="price"
+                        value={animal?.price}
+                        onChange={priceChange}
+                    />
                     <div className="btnContainer">
                         <button type="reset" onClick={closeModal}>
                             Cancel

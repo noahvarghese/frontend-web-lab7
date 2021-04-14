@@ -6,7 +6,7 @@ export const UpdatePermalink = `${Permalink}update&`;
 
 export const DeletePermalink = `${Permalink}delete&id=`;
 
-export const AddPermalink = `${Permalink}add`;
+export const AddPermalink = `${Permalink}add&`;
 
 export const SearchPermalink = `${Permalink}search&term=`;
 
